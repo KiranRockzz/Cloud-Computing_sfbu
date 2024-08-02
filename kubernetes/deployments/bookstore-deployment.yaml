@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstore-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookstore
+  template:
+    metadata:
+      labels:
+        app: bookstore
+    spec:
+      containers:
+      - name: bookstore
+        image: zhou19539/bookshelf
+        envFrom:
+        - configMapRef:
+            name: bookstore-config
+        ports:
+        - containerPort: 5000

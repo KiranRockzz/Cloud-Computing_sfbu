@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cs571-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: cs571.project.com
+    http:
+      paths:
+      - path: /studentserver(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: student-records
+            port: 
+              number: 80
+      - path: /bookshelf(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: bookstore
+            port: 
+              number: 80
